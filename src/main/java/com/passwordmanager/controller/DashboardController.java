@@ -12,6 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+/*
+ * DashboardController
+ * -------------------
+ * This controller handles dashboard related APIs.
+ * It returns summary information about a user's stored passwords
+ * such as total passwords, weak passwords, strong passwords, and favorites.
+ */
 
 @RestController
 @RequestMapping("/api/dashboard")
