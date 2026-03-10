@@ -8,9 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "PASSWORD_ENTRIES")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class PasswordEntry {
 
     @Id
@@ -25,105 +28,29 @@ public class PasswordEntry {
     private String encryptedPassword;
 
     private String category;
+    
+    @Lob
+    @Column(name = "notes")
     private String notes;
-    private String isFavorite;
+    @Column(name = "is_favorite", length = 1)
+    private String isFavorite = "N";
 
-    private LocalDateTime dateAdded;
+    @Column(length = 20)
+    private String strength; // WEAK, STRONG, VERY_STRONG
+    
+    public String getStrength() {
+		return strength;
+	}
+
+	public void setStrength(String strength) {
+		this.strength = strength;
+	}
+
+	private LocalDateTime dateAdded;
     private LocalDateTime dateModified;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore 
     private User user;
-
-	public Long getEntryId() {
-		return entryId;
-	}
-
-	public void setEntryId(Long entryId) {
-		this.entryId = entryId;
-	}
-
-	public String getAccountName() {
-		return accountName;
-	}
-
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
-
-	public String getWebsiteUrl() {
-		return websiteUrl;
-	}
-
-	public void setWebsiteUrl(String websiteUrl) {
-		this.websiteUrl = websiteUrl;
-	}
-
-	public String getUsernameEmail() {
-		return usernameEmail;
-	}
-
-	public void setUsernameEmail(String usernameEmail) {
-		this.usernameEmail = usernameEmail;
-	}
-
-	public String getEncryptedPassword() {
-		return encryptedPassword;
-	}
-
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public String getIsFavorite() {
-		return isFavorite;
-	}
-
-	public void setIsFavorite(String isFavorite) {
-		this.isFavorite = isFavorite;
-	}
-
-	public LocalDateTime getDateAdded() {
-		return dateAdded;
-	}
-
-	public void setDateAdded(LocalDateTime dateAdded) {
-		this.dateAdded = dateAdded;
-	}
-
-	public LocalDateTime getDateModified() {
-		return dateModified;
-	}
-
-	public void setDateModified(LocalDateTime dateModified) {
-		this.dateModified = dateModified;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-    
 }
