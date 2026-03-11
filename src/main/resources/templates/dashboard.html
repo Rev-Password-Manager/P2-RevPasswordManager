@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Manager - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f4f6f9; }
+        .sidebar { height: 100vh; background: #212529; color: white; padding: 20px; }
+        .sidebar button { width: 100%; margin-bottom: 10px; }
+        .content { padding: 30px; }
+        .card-box { padding: 25px; border-radius: 16px; color: white; box-shadow: 0 12px 25px rgba(0,0,0,0.12); cursor: pointer; transition: all .25s ease; }
+        .card-box:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 40px rgba(0,0,0,0.2); }
+        .card-box h5 { font-size: 14px; opacity: .9; }
+        .card-box h2 { font-size: 32px; font-weight: 700; margin: 0; }
+        /* Colors */
+        #overview .col-md-3:nth-child(1) .card-box { background: linear-gradient(135deg, #4e73df, #224abe); }
+        #overview .col-md-3:nth-child(2) .card-box { background: linear-gradient(135deg, #1cc88a, #17a673); }
+        #overview .col-md-3:nth-child(3) .card-box { background: linear-gradient(135deg, #36b9cc, #1f8b9c); }
+        #overview .col-md-3:nth-child(4) .card-box { background: linear-gradient(135deg, #e74a3b, #c0392b); }
+        #overview .col-md-3:nth-child(5) .card-box { background: linear-gradient(135deg, #f6c23e, #dda20a); }
+        #overview .col-md-3 .card-box::before { font-size:28px; display:block; margin-bottom:10px; }
+        #overview .col-md-3:nth-child(1) .card-box::before { content: "🔐"; }
+        #overview .col-md-3:nth-child(2) .card-box::before { content: "🛡️"; }
+        #overview .col-md-3:nth-child(3) .card-box::before { content: "🟢"; }
+        #overview .col-md-3:nth-child(4) .card-box::before { content: "⚠️"; }
+        #overview .col-md-3:nth-child(5) .card-box::before { content: "⭐"; }
+        #overview { row-gap: 35px; }
+        /* Blink animation for weak passwords card */
+/* Blink border for weak password card */
+/* Smooth glowing border for weak password card */
+/* Medium-paced blinking border for weak password card */
+
+
+/* Medium-paced blinking effect for the whole Weak Passwords card */
+
+/* Attractive medium-paced blinking for Weak Passwords card */
+.card-blink {
+    animation: card-blink 2s ease-in-out infinite;
+}
+
+@keyframes card-blink {
+    0%   { opacity: 1; transform: scale(1); }
+    50%  { opacity: 0.7; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-2 sidebar">
+            <h4>Vault</h4>
+            <button class="btn btn-outline-light" onclick="location.href='/dashboard'">Overview</button>
+<button class="btn btn-outline-light" onclick="location.href='/vault'">Password Vault</button>
+<button class="btn btn-outline-light" onclick="location.href='/generator'">Generator</button>
+<button class="btn btn-outline-light" onclick="location.href='/audit'">Security Audit</button>
+<button class="btn btn-outline-light" onclick="location.href='/backup'">Backup (Import/Export)</button>
+<button class="btn btn-outline-light" onclick="location.href='/profile'">Profile</button>
+            <hr>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-10 content" id="mainContent">
+            <h3>Dashboard Summary</h3>
+            <div class="row" id="overview">
+                <div class="col-md-3">
+  <div class="card-box" onclick="openVaultWithFilter('ALL')">
+    <h5>Total Passwords</h5>
+    <h2 id="totalPasswords">0</h2>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card-box" onclick="openVaultWithFilter('VERY_STRONG')">
+    <h5>Very Strong Passwords</h5>
+    <h2 id="veryStrongPasswords">0</h2>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card-box" onclick="openVaultWithFilter('STRONG')">
+    <h5>Strong Passwords</h5>
+    <h2 id="strongPasswords">0</h2>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card-box" onclick="openVaultWithFilter('WEAK')">
+    <h5>Weak Passwords</h5>
+    <h2 id="weakPasswords">0</h2>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="card-box" onclick="openVaultWithFilter('FAV')">
+    <h5>Favorites</h5>
+    <h2 id="favoriteCount">0</h2>
+  </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
