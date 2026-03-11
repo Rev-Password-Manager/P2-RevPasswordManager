@@ -197,8 +197,8 @@ Sai Sucharitha • Revanth Gowd • Shiva Kumar • Dhanush HD
           └── java/com/passwordmanager
                 ├── controller
                 ├── service
-                └── repository
-     ```
+                └── repository ```
+    
 🗄️ Database Tables (Oracle)
 
 USERS
