@@ -1,11 +1,16 @@
 🔐 RevPasswordManager Web Application
+Full-Stack Monolithic Password Management Application
 
-RevPasswordManager is a full-stack monolithic password management web application developed as part of the Revature Training Program (Phase 2).
+Revature Training Program | Phase 2 Project | PES Mandya Batch
 
-The system allows users to securely store, manage, and generate passwords for different online accounts. It focuses on strong security practices including password encryption, security questions, two-factor authentication, verification codes, and password strength analysis.
+🔐 Welcome to RevPasswordManager P2 WebApplication
+
+RevPasswordManager is a full-stack monolithic password management web application developed as part of the Revature Training Program (Phase 2) by the PES Mandya Batch.
+
+The application allows users to securely store, manage, and generate passwords for different online accounts. It focuses on enterprise-level security practices including password encryption, security questions, two-factor authentication, verification codes, and password strength analysis.
 
 🚀 Tech Stack & Tools
-Frontend
+💻 Frontend
 
 HTML
 
@@ -15,7 +20,7 @@ JavaScript
 
 Bootstrap
 
-Backend
+⚙️ Backend
 
 Spring Boot
 
@@ -23,11 +28,11 @@ Spring Security
 
 REST APIs
 
-Database
+🗄️ Database
 
 Oracle Database
 
-Security
+🔐 Security
 
 BCrypt Password Encryption
 
@@ -35,7 +40,7 @@ Two-Factor Authentication (Google Authenticator)
 
 Verification Code Authentication
 
-Development Tools
+🧰 Development Tools
 
 IntelliJ IDEA
 
@@ -47,24 +52,26 @@ Postman (API Testing)
 
 🏗️ Architecture & Design
 
+✨ Enterprise-Level System Design
+
 Layered Monolithic Architecture
 
-MVC (Model-View-Controller) Pattern
-
-Spring Boot REST API Architecture
+MVC (Model-View-Controller) Design Pattern
 
 Secure Authentication & Authorization
 
 Oracle Database Integration
 
-Exception Handling & Validation
+Logging & Exception Handling
 
 Password Encryption using BCrypt
 
 Two-Factor Authentication Support
 
+Input Validation & Error Handling
+
 👤 User Functionalities
-Authentication & Account Management
+🔐 Authentication & Account Management
 
 User Registration
 
@@ -78,7 +85,7 @@ Profile Management
 
 Forgot Password using Security Questions
 
-🔐 Password Vault Management
+🔑 Password Vault Management
 
 Users can securely store credentials including:
 
@@ -104,7 +111,7 @@ Delete Password Entry
 
 Search Passwords
 
-Filter by Category
+Filter Passwords by Category
 
 Mark Passwords as Favourite
 
@@ -116,9 +123,9 @@ The application provides a secure password generator with customizable options:
 
 Password Length (8–64 characters)
 
-Uppercase letters
+Uppercase Letters
 
-Lowercase letters
+Lowercase Letters
 
 Numbers
 
@@ -126,33 +133,33 @@ Special Characters
 
 Exclude Similar Characters
 
-Additional Features:
+Additional Features
 
 Password Strength Indicator
 
-Copy generated password
+Copy Generated Password
 
-Directly save generated password to vault
+Directly Save Generated Password to Vault
 
 🔐 Security Features
 
 To ensure maximum security, the system implements:
 
-BCrypt password hashing
+BCrypt Password Hashing
 
-Security questions for account recovery
+Security Questions for Account Recovery
 
 Two-Factor Authentication (2FA)
 
-Verification codes for sensitive operations
+Verification Codes for Sensitive Operations
 
-Password strength analysis
+Password Strength Analysis
 
-Security audit for weak passwords
+Security Audit for Weak Passwords
 
-Encrypted password storage
+Encrypted Password Storage
 
-📊 Core Modules
+🧰 Core Modules
 
 Authentication & Account Management
 
@@ -164,9 +171,13 @@ Security Questions Management
 
 Two-Factor Authentication
 
+Verification Code Authentication
+
 Security Audit & Password Strength Analysis
 
-Verification Code Authentication
+👥 Group Members
+
+Sai Sucharitha • Revanth Gowd • Shiva Kumar • Dhanush HD
 
 📂 Project Structure
 src
@@ -199,15 +210,9 @@ USER_SECURITY_ANSWERS
 
 VERIFICATION_CODES
 
-📦 Repository Information
+📂 Repository Information
 
-Project: RevPasswordManager
-Program: Revature Java Full Stack Training (Phase 2)
-Architecture: Layered Monolithic – Spring Boot MVC
-Database: Oracle
-
-🔒 Note
-
-🚧 This project is developed for educational and training purposes as part of the Revature Full Stack Program.
-
-The repository contains the complete implementation of RevPasswordManager including backend APIs, frontend UI, and database integration.
+📦 Project: RevPasswordManager (Password Management System)
+🏫 Batch: PES Mandya – Revature Java Full Stack Training Program
+🛠️ Architecture: Layered Monolithic (Spring Boot MVC)
+🗄️ Database: Oracle
