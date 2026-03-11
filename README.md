@@ -180,24 +180,25 @@ Security Audit & Password Strength Analysis
 Sai Sucharitha • Revanth Gowd • Shiva Kumar • Dhanush HD
 
 📂 Project Structure
-src
-├── main
-│    ├── java/com/passwordmanager
-│    │     ├── controller
-│    │     ├── service
-│    │     ├── repository
-│    │     ├── entity
-│    │     ├── security
-│    │     ├── dto
-│    │     ├── config
-│    │     └── exception
-│    └── resources
-│
-└── test
-     └── java/com/passwordmanager
-           ├── controller
-           ├── service
-           └── repository
+     ```src
+     ├── main
+     │    ├── java/com/passwordmanager
+     │    │     ├── controller
+     │    │     ├── service
+     │    │     ├── repository
+     │    │     ├── entity
+     │    │     ├── security
+     │    │     ├── dto
+     │    │     ├── config
+     │    │     └── exception
+     │    └── resources
+     │
+     └── test
+          └── java/com/passwordmanager
+                ├── controller
+                ├── service
+                └── repository ```
+    
 🗄️ Database Tables (Oracle)
 
 USERS
