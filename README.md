@@ -179,7 +179,7 @@ Security Audit & Password Strength Analysis
 
 Sai Sucharitha • Revanth Gowd • Shiva Kumar • Dhanush HD
 
-``📂 Project Structure
+```📂 Project Structure
 src
 ├── main
 │    ├── java/com/passwordmanager
@@ -197,7 +197,7 @@ src
      └── java/com/passwordmanager
            ├── controller
            ├── service
-           └── repository``
+           └── repository```
 
 🗄️ Database Tables (Oracle)
 
