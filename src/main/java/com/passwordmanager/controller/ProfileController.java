@@ -3,6 +3,8 @@ package com.passwordmanager.controller;
 import com.passwordmanager.dto.UserDto;
 import com.passwordmanager.entity.User;
 import com.passwordmanager.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; // for logging
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,65 +16,84 @@ import java.util.Map;
 @RequestMapping("/api/profile")
 public class ProfileController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Get user profile
+    // =========================
+    // GET USER PROFILE
+    // =========================
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getProfile(@PathVariable Long userId) {
+        logger.info("Fetching profile for userId: {}", userId);
         User user = userService.getUserById(userId);
         UserDto response = userService.mapToDto(user);
+        logger.info("Profile fetched successfully for userId: {}", userId);
         return ResponseEntity.ok(response);
     }
 
-    // Update profile (name, email, phone)
+    // =========================
+    // UPDATE PROFILE (name, email, phone, master password)
+    // =========================
     @PutMapping("/{userId}/update")
-    public ResponseEntity<?> updateProfile(
-            @PathVariable Long userId,
-            @RequestBody Map<String,String> payload){
+    public ResponseEntity<?> updateProfile(@PathVariable Long userId,
+                                           @RequestBody Map<String, String> payload) {
+
+        logger.info("Updating profile for userId: {}", userId);
 
         String masterPassword = payload.get("masterPassword");
         String newPassword = payload.get("newPassword");
 
         User user = userService.getUserById(userId);
 
-        // verify old master password
-        if(!passwordEncoder.matches(masterPassword,
-                user.getMasterPasswordHash())){
-
-            return ResponseEntity.status(401)
-                    .body("Invalid Master Password");
+        // Verify old master password
+        if (!passwordEncoder.matches(masterPassword, user.getMasterPasswordHash())) {
+            logger.warn("Invalid master password provided for userId: {}", userId);
+            return ResponseEntity.status(401).body("Invalid Master Password");
         }
 
+        // Update user details
         user.setFullName(payload.get("fullName"));
         user.setEmail(payload.get("email"));
         user.setPhoneNumber(payload.get("phoneNumber"));
 
-        // update password if provided
-        if(newPassword != null && !newPassword.isEmpty()){
-            user.setMasterPasswordHash(
-                    passwordEncoder.encode(newPassword)
-            );
+        // Update password if provided
+        if (newPassword != null && !newPassword.isEmpty()) {
+            user.setMasterPasswordHash(passwordEncoder.encode(newPassword));
+            logger.info("Master password updated for userId: {}", userId);
         }
 
         userService.registerUser(user);
+        logger.info("Profile updated successfully for userId: {}", userId);
 
         return ResponseEntity.ok("Profile Updated");
     }
-    // Change master password
+
+    // =========================
+    // CHANGE MASTER PASSWORD
+    // =========================
     @PutMapping("/{userId}/change-password")
     public ResponseEntity<String> changePassword(@PathVariable Long userId,
                                                  @RequestParam String currentPassword,
                                                  @RequestParam String newPassword) {
+
+        logger.info("Changing master password for userId: {}", userId);
+
         User user = userService.getUserById(userId);
 
-        if(!user.getMasterPasswordHash().equals(currentPassword)) {
+        // Check if current password matches
+        if (!user.getMasterPasswordHash().equals(currentPassword)) {
+            logger.warn("Incorrect current password for userId: {}", userId);
             return ResponseEntity.status(401).body("Current password is incorrect");
         }
 
         userService.updateMasterPassword(userId, newPassword);
+        logger.info("Master password changed successfully for userId: {}", userId);
+
         return ResponseEntity.ok("Password changed successfully");
     }
 }

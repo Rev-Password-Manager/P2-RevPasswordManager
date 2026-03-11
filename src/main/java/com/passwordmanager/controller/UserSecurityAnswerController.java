@@ -1,13 +1,15 @@
 package com.passwordmanager.controller;
 
-import com.passwordmanager.entity.SecurityQuestion;
+import com.passwordmanager.dto.UserQuestionDTO;
 import com.passwordmanager.entity.User;
 import com.passwordmanager.entity.UserSecurityAnswer;
-import com.passwordmanager.repository.SecurityQuestionRepository;
 import com.passwordmanager.repository.UserRepository;
 import com.passwordmanager.repository.UserSecurityAnswerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; // for logging
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/security-answers")
 public class UserSecurityAnswerController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserSecurityAnswerController.class);
+
     @Autowired
     private UserSecurityAnswerRepository answerRepository;
 
@@ -25,81 +29,86 @@ public class UserSecurityAnswerController {
     private UserRepository userRepository;
 
     @Autowired
-    private SecurityQuestionRepository questionRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
-    // ✅ ADD SECURITY ANSWERS
-    @PostMapping("/{userId}/add")
-    public ResponseEntity<?> addAnswers(
-            @PathVariable Long userId,
-            @RequestBody List<UserSecurityAnswer> answers) {
-
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isEmpty()) {
-            return ResponseEntity.badRequest().body("User not found");
-        }
-
-        User user = optionalUser.get();
-
-        for (UserSecurityAnswer answer : answers) {
-            answer.setUser(user);
-        }
-
-        answerRepository.saveAll(answers);
-
-        return ResponseEntity.ok("Security answers saved successfully");
-    }
-
-    // ✅ UPDATE SECURITY ANSWERS
-    @PutMapping("/{userId}/update")
-    public ResponseEntity<?> updateAnswers(
-            @PathVariable Long userId,
-            @RequestBody List<UserSecurityAnswer> updatedAnswers) {
-
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isEmpty()) {
-            return ResponseEntity.badRequest().body("User not found");
-        }
-
-        User user = optionalUser.get();
-
-        List<UserSecurityAnswer> existingAnswers = answerRepository.findByUser(user);
-
-        for (UserSecurityAnswer existing : existingAnswers) {
-            for (UserSecurityAnswer updated : updatedAnswers) {
-                if (existing.getQuestion().getQuestionId()
-                        .equals(updated.getQuestion().getQuestionId())) {
-
-                    existing.setAnswerHash(updated.getAnswerHash());
-                }
-            }
-        }
-
-        answerRepository.saveAll(existingAnswers);
-
-        return ResponseEntity.ok("Security answers updated successfully");
-    }
-
-    // ✅ GET ALL SECURITY ANSWERS (ONLY QUESTIONS)
+    // =========================
+    // GET ALL QUESTIONS FOR PROFILE VIEW
+    // =========================
     @GetMapping("/{userId}/all")
     public ResponseEntity<?> getAllAnswers(@PathVariable Long userId) {
+        logger.info("Fetching all security questions for userId: {}", userId);
 
-        Optional<User> optionalUser = userRepository.findById(userId);
+        List<UserSecurityAnswer> answers = answerRepository.findByUser_UserId(userId);
+        logger.info("Total questions fetched: {}", answers.size());
 
-        if (optionalUser.isEmpty()) {
-            return ResponseEntity.badRequest().body("User not found");
-        }
+        answers.forEach(a -> logger.info("Question: {}", a.getQuestion().getQuestionText()));
 
-        User user = optionalUser.get();
-
-        List<UserSecurityAnswer> answers = answerRepository.findByUser(user);
-
-        // Return only question text (not hash)
         List<String> questions = answers.stream()
                 .map(a -> a.getQuestion().getQuestionText())
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(questions);
+    }
+
+    // =========================
+    // GET QUESTIONS FOR EDIT MODAL
+    // =========================
+    @GetMapping("/{userId}/edit")
+    public ResponseEntity<?> getQuestionsForEdit(@PathVariable Long userId) {
+        logger.info("Fetching security questions for edit modal for userId: {}", userId);
+
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            logger.warn("User not found for userId: {}", userId);
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
+        List<UserSecurityAnswer> answers = answerRepository.findByUser(userOpt.get());
+
+        List<UserQuestionDTO> dtoList = answers.stream().map(a -> {
+            UserQuestionDTO dto = new UserQuestionDTO();
+            dto.setAnswerId(a.getAnswerId());
+            dto.setQuestionId(a.getQuestion().getQuestionId());
+            dto.setQuestionText(a.getQuestion().getQuestionText());
+            dto.setAnswer(""); // frontend input
+            return dto;
+        }).collect(Collectors.toList());
+
+        logger.info("Questions prepared for edit modal for userId: {}", userId);
+        return ResponseEntity.ok(dtoList);
+    }
+
+    // =========================
+    // UPDATE SECURITY ANSWERS
+    // =========================
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<?> updateAnswers(@PathVariable Long userId,
+                                           @RequestBody List<UserQuestionDTO> updatedAnswers) {
+
+        logger.info("Updating security answers for userId: {}", userId);
+
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            logger.warn("User not found for userId: {}", userId);
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
+        User user = userOpt.get();
+        List<UserSecurityAnswer> existingAnswers = answerRepository.findByUser(user);
+
+        for (UserSecurityAnswer existing : existingAnswers) {
+            for (UserQuestionDTO updated : updatedAnswers) {
+                if (existing.getAnswerId().equals(updated.getAnswerId())) {
+                    existing.setAnswerHash(passwordEncoder.encode(updated.getAnswer()));
+                    logger.info("Updated answer for questionId: {} for userId: {}",
+                            updated.getQuestionId(), userId);
+                }
+            }
+        }
+
+        answerRepository.saveAll(existingAnswers);
+        logger.info("All security answers updated successfully for userId: {}", userId);
+
+        return ResponseEntity.ok("Security answers updated successfully");
     }
 }

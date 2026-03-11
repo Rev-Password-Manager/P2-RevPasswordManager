@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -221,5 +222,77 @@ public class PasswordVaultServiceImpl implements PasswordVaultService {
     public List<PasswordEntry> getOldPasswords(User user, int daysThreshold) { 
     	LocalDateTime cutoff = LocalDateTime.now().minusDays(daysThreshold); 
     	return repository.findByUser(user).stream() .filter(e -> e.getDateModified() != null && e.getDateModified().isBefore(cutoff)) .collect(Collectors.toList()); 
+    }
+    
+    
+    
+    @Override
+    public byte[] exportVault(User user) {
+        List<PasswordEntry> entries = repository.findByUser(user);
+
+        try {
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            // Prevent issues with lazy-loaded JPA relationships
+            mapper.findAndRegisterModules();
+            mapper.configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            String json = mapper.writeValueAsString(entries);
+
+            String encrypted = encryptionService.encrypt(json);
+
+            return encrypted.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace(); // log the real error
+            throw new RuntimeException("Failed to export vault", e);
+        }
+    }
+
+
+
+    //import method//
+
+    @Override
+    public void importVault(User user, byte[] encryptedBytes) {
+        try {
+            // Decrypt JSON
+            String json = encryptionService.decryptFromBytes(encryptedBytes);
+
+            // Configure ObjectMapper with JavaTimeModule
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            mapper.findAndRegisterModules(); // registers JavaTimeModule automatically
+            mapper.configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            // Convert JSON back to list of PasswordEntry
+            List<PasswordEntry> entries = Arrays.asList(
+                    mapper.readValue(json, PasswordEntry[].class)
+            );
+
+            // Re‑attach user and save each entry (with duplicate check)
+            for (PasswordEntry entry : entries) {
+                entry.setUser(user);
+
+                Optional<PasswordEntry> existing = repository.findByUserAndAccountNameAndUsernameEmail(
+                        user, entry.getAccountName(), entry.getUsernameEmail()
+                );
+
+                if (existing.isPresent()) {
+                    PasswordEntry existingEntry = existing.get();
+                    existingEntry.setWebsiteUrl(entry.getWebsiteUrl());
+                    existingEntry.setEncryptedPassword(entry.getEncryptedPassword());
+                    existingEntry.setCategory(entry.getCategory());
+                    existingEntry.setIsFavorite(entry.getIsFavorite());
+                    existingEntry.setNotes(entry.getNotes());
+                    existingEntry.setDateModified(LocalDateTime.now());
+                    repository.save(existingEntry);
+                } else {
+                    entry.setDateAdded(LocalDateTime.now());
+                    entry.setDateModified(LocalDateTime.now());
+                    repository.save(entry);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to import vault", e);
+        }
     }
 }

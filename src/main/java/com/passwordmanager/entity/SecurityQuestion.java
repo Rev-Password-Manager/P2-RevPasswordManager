@@ -1,8 +1,12 @@
 package com.passwordmanager.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
+// ======================
+// SecurityQuestion Entity
+// Stores predefined security questions
+// ======================
 @Entity
 @Data
 @Table(name = "SECURITY_QUESTIONS")
@@ -10,8 +14,7 @@ public class SecurityQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionId;
+    private Long questionId; // primary key
 
-    private String questionText;
-
+    private String questionText; // actual question text
 }

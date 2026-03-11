@@ -3,21 +3,23 @@ package com.passwordmanager.dto;
 import java.util.List;
 
 public class SecurityAnswerDto {
-    private Long userId;              // the user whose answers are being validated
-    private List<String> answers;     // the answers submitted by the user
 
-    // getters and setters
+    private Long userId;
+    private List<AnswerDto> answers;
+
     public Long getUserId() {
         return userId;
     }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public List<String> getAnswers() {
+    public List<AnswerDto> getAnswers() {
         return answers;
     }
-    public void setAnswers(List<String> answers) {
+
+    public void setAnswers(List<AnswerDto> answers) {
         this.answers = answers;
     }
 }

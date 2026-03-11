@@ -4,23 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//======================
+//UserSecurityAnswer Entity
+//Stores hashed answers for security questions
+//======================
 @Entity
 @Data
 @Table(name = "user_security_answers")
 public class UserSecurityAnswer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerId;
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Long answerId; // primary key
 
-    private String answerHash;
+ private String answerHash; // hashed answer
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
-    private User user;
+ @ManyToOne
+ @JoinColumn(name = "user_id", nullable = false)
+ @JsonIgnore
+ private User user; // associated user
 
-    @ManyToOne
-    @JoinColumn(name = "question_id", nullable = false)
-    private SecurityQuestion question;
+ @ManyToOne(fetch = FetchType.EAGER)
+ @JoinColumn(name = "question_id", nullable = false)
+ private SecurityQuestion question; // associated question
 }

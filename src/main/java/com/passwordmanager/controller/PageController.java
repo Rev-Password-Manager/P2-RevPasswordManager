@@ -1,106 +1,103 @@
 package com.passwordmanager.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; // for logging
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/*
- * PageController
- * ---------------
- * This controller is responsible for handling navigation between
- * different frontend pages in the Password Manager application.
- * Each endpoint returns the name of the HTML page to be rendered.
- */
 @Controller
 public class PageController {
 
-    /*
-     * Redirects the root URL to the login page.
-     * Example: http://localhost:8080/  →  /login
-     */
-    @GetMapping("/")
-    public String home()
-    {
-        return "redirect:/login";
+    // Logger to track method calls and page requests
+    private static final Logger logger = LoggerFactory.getLogger(PageController.class);
+
+    @GetMapping("/") 
+    public String home() { 
+        logger.info("Accessed home page, redirecting to login");
+        return "redirect:/login"; 
     }
 
-    /*
-     * Displays the login page where users can enter
-     * their username/email and password to authenticate.
-     */
     @GetMapping("/login")
     public String login() {
+        logger.info("Accessed login page");
         return "login";
     }
 
-    /*
-     * Displays the user registration page
-     * for creating a new account.
-     */
     @GetMapping("/register")
     public String register() {
+        logger.info("Accessed register page");
         return "register";
     }
 
-    /*
-     * Displays the main dashboard page after successful login.
-     * The dashboard shows password statistics and user data.
-     */
     @GetMapping("/dashboard")
     public String dashboard() {
-        return "dashboard";
+        logger.info("Accessed dashboard page");
+        return "dashboard"; 
     }
 
-    /*
-     * Displays the verification page used for
-     * OTP or two-factor authentication verification.
-     */
     @GetMapping("/verification")
     public String verification() {
+        logger.info("Accessed verification page");
         return "verification";
     }
 
-    /*
-     * Displays the security questions page where users
-     * can set or answer security questions for account recovery.
-     */
     @GetMapping("/security-questions")
     public String securityQuestions() {
+        logger.info("Accessed security questions page");
         return "security-questions";
     }
 
-    /*
-     * Displays the forgot password page where users
-     * initiate the password recovery process.
-     */
+    @GetMapping("/updatesecurityquestions")
+    public String updateSecurityQuestionsPage() {
+        logger.info("Accessed update security questions page");
+        return "updatesecurityquestions";
+    }
+
     @GetMapping("/forgot-password")
     public String forgotPassword() {
+        logger.info("Accessed forgot password page");
         return "forgot-password";
     }
 
-    /*
-     * Displays the reset password page where users
-     * can set a new password after verification.
-     */
     @GetMapping("/reset-password")
     public String resetPassword() {
+        logger.info("Accessed reset password page");
         return "reset-password";
     }
 
-    /*
-     * Displays the page for importing or exporting
-     * password vault data.
-     */
-    @GetMapping("/import-export")
-    public String importExport() {
-        return "import-export";
+    @GetMapping("/backup")
+    public String backup() { 
+        logger.info("Accessed backup page");
+        return "backup"; 
     }
 
-    /*
-     * Displays the access denied page when a user tries
-     * to access a resource without proper authorization.
-     */
     @GetMapping("/no-access")
     public String noAccess() {
-        return "no-access"; // maps to no-access.html
+        logger.info("Accessed no-access page");
+        return "no-access"; 
+    }
+
+    @GetMapping("/vault")
+    public String vault() {
+        logger.info("Accessed vault page");
+        return "vault";
+    }
+
+    @GetMapping("/generator")
+    public String generator() {
+        logger.info("Accessed generator page");
+        return "generator";
+    }
+
+    @GetMapping("/audit")
+    public String audit() {
+        logger.info("Accessed audit page");
+        return "audit";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        logger.info("Accessed profile page");
+        return "profile";
     }
 }

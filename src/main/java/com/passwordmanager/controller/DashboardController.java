@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-/*
- * DashboardController
- * -------------------
- * This controller handles dashboard related APIs.
- * It returns summary information about a user's stored passwords
- * such as total passwords, weak passwords, strong passwords, and favorites.
- */
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/dashboard")
 public class DashboardController {
+
+    // Logger to track method calls and events
+    private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
     @Autowired
     private UserService userService;
@@ -33,37 +31,45 @@ public class DashboardController {
     // Get dashboard summary
     @GetMapping("/{userId}")
     public ResponseEntity<?> getDashboard(@PathVariable Long userId) {
+        // Log method entry
+        logger.info("Entered getDashboard method for userId: {}", userId);
 
+        // Log fetching user
+        logger.info("Fetching user details for userId: {}", userId);
         User user = userService.getUserById(userId);
-        List<PasswordEntry> allPasswords =
-                passwordVaultService.getAllEntriesByUser(user);
 
-        
+        // Log fetching all password entries for user
+        logger.info("Fetching all password entries for userId: {}", userId);
+        List<PasswordEntry> allPasswords = passwordVaultService.getAllEntriesByUser(user);
 
+        // Log calculating password strength counts
         long weak = allPasswords.stream()
                 .filter(e -> "WEAK".equalsIgnoreCase(e.getStrength()))
                 .count();
-
         long strong = allPasswords.stream()
                 .filter(e -> "STRONG".equalsIgnoreCase(e.getStrength()))
                 .count();
-
         long veryStrong = allPasswords.stream()
                 .filter(e -> "VERY_STRONG".equalsIgnoreCase(e.getStrength()))
                 .count();
-        
         long total = allPasswords.size();
-        
+
+        // Log calculating favorite passwords
         List<PasswordEntry> favorites = allPasswords.stream()
                 .filter(e -> "Y".equalsIgnoreCase(e.getIsFavorite()))
                 .toList();
-        
-        Map<String,Object> summary = new HashMap<>();
+
+        // Log preparing summary map
+        Map<String, Object> summary = new HashMap<>();
         summary.put("total", total);
         summary.put("weak", weak);
         summary.put("strong", strong);
-        summary.put("veryStrong", veryStrong); 
+        summary.put("veryStrong", veryStrong);
         summary.put("favorites", favorites);
+
+        // Log method exit
+        logger.info("Exiting getDashboard method for userId: {}. Total passwords: {}, weak: {}, strong: {}, veryStrong: {}, favorites: {}",
+                userId, total, weak, strong, veryStrong, favorites.size());
 
         return ResponseEntity.ok(summary);
     }

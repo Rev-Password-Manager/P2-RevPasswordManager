@@ -3,7 +3,6 @@ package com.passwordmanager.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -18,39 +17,43 @@ public class PasswordEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long entryId;
+    private Long entryId; // primary key
 
-    private String accountName;
-    private String websiteUrl;
-    private String usernameEmail;
+    private String accountName;   // Name of the account, e.g., Gmail
+    private String websiteUrl;    // Website URL
+    private String usernameEmail; // Username or email for this account
 
-    @Column(name = "encrypted_password", length = 500) 
-    private String encryptedPassword;
+    @Column(name = "encrypted_password", length = 500)
+    private String encryptedPassword; // AES-encrypted password
 
-    private String category;
+    private String category; // Category/tag for this password (e.g., Social, Work)
     
     @Lob
     @Column(name = "notes")
-    private String notes;
+    private String notes; // Optional notes for the entry
+
     @Column(name = "is_favorite", length = 1)
-    private String isFavorite = "N";
+    private String isFavorite = "N"; // "Y" if marked favorite, "N" otherwise
 
     @Column(length = 20)
-    private String strength; // WEAK, STRONG, VERY_STRONG
-    
-    public String getStrength() {
-		return strength;
-	}
+    private String strength; // Password strength: WEAK, STRONG, VERY_STRONG
 
-	public void setStrength(String strength) {
-		this.strength = strength;
-	}
-
-	private LocalDateTime dateAdded;
-    private LocalDateTime dateModified;
+    private LocalDateTime dateAdded;    // When the password was added
+    private LocalDateTime dateModified; // Last modified timestamp
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore 
-    private User user;
+    @JsonIgnore // Avoid circular serialization with User
+    private User user; // Owning user
+
+    // =========================
+    // Optional getters/setters for custom logic
+    // =========================
+    public String getStrength() {
+        return strength;
+    }
+
+    public void setStrength(String strength) {
+        this.strength = strength;
+    }
 }
