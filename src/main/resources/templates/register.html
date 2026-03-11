@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rev Password Manager - Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        /* ===== DARK TECH BACKGROUND ===== */
+        body{
+            height:100vh;
+            margin:0;
+            font-family:'Segoe UI',sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            background:linear-gradient(135deg,#0a0f1f,#0f2027,#1b3a4b,#112d4e,#0a192f);
+            background-size:400% 400%;
+            animation:bgMove 18s ease infinite;
+        }
+
+        @keyframes bgMove{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+
+        /* ===== MAIN CARD (SMALLER) ===== */
+        .main-card{
+            height:500px;
+            width:720px;
+            border-radius:16px;
+            overflow:hidden;
+            box-shadow:0 20px 70px rgba(0,0,0,0.65);
+            border:1px solid rgba(255,255,255,0.12);
+        }
+
+        /* ===== LEFT INFO PANEL ===== */
+        .left-panel{
+            background:rgba(8,18,40,0.65);
+            color:white;
+            padding:35px 30px;
+            backdrop-filter:blur(12px);
+            border-right:1px solid rgba(255,255,255,0.12);
+        }
+
+        .brand{
+            font-size:26px;
+            font-weight:700;
+        }
+
+        .tag{
+            font-size:13px;
+            opacity:.8;
+            margin-bottom:15px;
+        }
+
+        /* feature animation */
+        .feature{
+            opacity:0;
+            transform:translateY(15px);
+            font-size:14px;
+            margin-top:12px;
+        }
+
+        .feature.show{
+            animation:fadeUp .6s forwards;
+        }
+
+        @keyframes fadeUp{
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* ===== RIGHT FORM PANEL ===== */
+        .right-panel{
+            background:rgba(255,255,255,0.75);
+            padding:35px 40px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            backdrop-filter:blur(12px);
+        }
+
+        .right-panel h3{
+            text-align:center;
+            font-size:24px;
+            margin-bottom:15px;
+            font-weight:600;
+        }
+
+        /* ===== INPUT FIELDS ===== */
+        input.form-control{
+            height:36px;
+            border-radius:7px;
+            margin-bottom:12px;
+            font-size:13px;
+            background:rgba(255,255,255,0.9);
+            border:1px solid rgba(0,0,0,0.18);
+            transition:all .25s ease;
+        }
+
+        /* glow on focus */
+        input.form-control:focus{
+            border-color:#2dd4bf;
+            box-shadow:0 0 0 3px rgba(45,212,191,0.35);
+            transform:scale(1.02);
+        }
+
+        /* ===== REGISTER BUTTON ===== */
+        .register-btn{
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            border:none;
+            height:38px;
+            border-radius:7px;
+            font-weight:600;
+            color:white;
+            transition:.3s;
+        }
+
+        .register-btn:hover{
+            transform:scale(1.05);
+            box-shadow:0 6px 18px rgba(0,114,255,0.5);
+        }
+        /* ===== LOGIN LINK ===== */
+
+.login-section{
+    font-size:13px;
+}
+
+.login-text{
+    color:#555;
+}
+
+.login-link{
+    text-decoration:none;
+    font-weight:600;
+    color:#0072ff;
+    margin-left:4px;
+}
+
+.login-link:hover{
+    text-decoration:underline;
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="main-card row g-0">
+
+    <!-- LEFT SIDE -->
+    <div class="col-md-6 left-panel">
+
+        <div class="brand">Rev Password Manager</div>
+        <div class="tag">Secure vault for your digital life</div>
+
+        <div class="feature">🔐 Strong password generator</div>
+        <div class="feature">🌍 Access anywhere</div>
+        <div class="feature">🛡 Hacker protection</div>
+        <div class="feature">⚡ Lightweight & fast</div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-md-6 right-panel">
+
+        <h3>Create Account</h3>
+
+        <form id="registerForm">
+
+            <input class="form-control" id="fullName" placeholder="Full Name" required>
+
+            <input class="form-control" id="username" placeholder="Username" required>
+
+            <input class="form-control" id="email" placeholder="Email" required>
+
+            <input class="form-control" id="phone" placeholder="Phone">
+
+            <input type="password" class="form-control" id="password" placeholder="Master Password" required>
+
+            <button class="btn register-btn w-100 mt-2">Register</button>
+            <div class="text-center mt-3 login-section">
+
+    <span class="login-text">
+        Already have an account?
+    </span>
+
+                <a href="/login" class="login-link">
+                    Sign in
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const registerForm = document.getElementById("registerForm");
+
+    registerForm.addEventListener("submit", async function(e){
+        e.preventDefault();
+
+        try {
+
+            const response = await fetch("/api/auth/register",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    fullName: document.getElementById("fullName").value,
+                    username: document.getElementById("username").value,
+                    email: document.getElementById("email").value,
+                    phoneNumber: document.getElementById("phone").value,
+                    masterPassword: document.getElementById("password").value
+                })
+            });
+
+            const data = await response.json();
+
+            if(!response.ok){
+                alert(data.message);
+                return;
+            }
+
+            // ✅ Save userId in sessionStorage
+            sessionStorage.setItem("userId", data.userId);
+
+            alert(data.message);
+            window.location.href="/security-questions";
+
+
+        } catch(error){
+            alert("Something went wrong. Please try again.");
+        }
+    });
+
+    /* sequential text animation */
+    const features=document.querySelectorAll(".feature");
+    features.forEach((el,i)=>{
+        setTimeout(()=>{el.classList.add("show");},600*(i+1));
+    });
+</script>
+
+</body>
+</html>
