@@ -1,6 +1,7 @@
-package com.passwordmanager.controller;
+package com.passwordmanager.controllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.passwordmanager.controller.SecurityQuestionController;
 import com.passwordmanager.entity.SecurityQuestion;
 import com.passwordmanager.entity.User;
 import com.passwordmanager.entity.UserSecurityAnswer;
@@ -47,17 +48,12 @@ class SecurityQuestionControllerTest {
     private UserSecurityAnswer mockAnswer(String ans){
         UserSecurityAnswer answer = new UserSecurityAnswer();
         answer.setAnswerHash(ans);
-
-        SecurityQuestion q = new SecurityQuestion();
-        q.setQuestionId(1L);
-        q.setQuestionText("Sample Question");
-        answer.setQuestion(q); // ✅ ensure question is set
-
         return answer;
     }
 
     @Test
     void testGetAllQuestions() throws Exception {
+
         SecurityQuestion q = new SecurityQuestion();
         q.setQuestionId(1L);
         q.setQuestionText("Your pet name?");
@@ -71,9 +67,11 @@ class SecurityQuestionControllerTest {
 
     @Test
     void testSaveAnswers() throws Exception {
+
         User user = mockUser();
 
-        UserSecurityAnswer a1 = mockAnswer("dog"); // ✅ includes question
+        UserSecurityAnswer a1 = new UserSecurityAnswer();
+        a1.setAnswerHash("dog");
 
         Mockito.when(userService.getUserById(1L)).thenReturn(user);
 
@@ -85,6 +83,7 @@ class SecurityQuestionControllerTest {
 
     @Test
     void testGetUserAnswers() throws Exception {
+
         User user = mockUser();
 
         Mockito.when(userService.getUserById(1L)).thenReturn(user);
@@ -97,6 +96,7 @@ class SecurityQuestionControllerTest {
 
     @Test
     void testVerifyAnswersSuccess() throws Exception {
+
         User user = mockUser();
 
         UserSecurityAnswer a1 = mockAnswer("dog");
@@ -120,6 +120,7 @@ class SecurityQuestionControllerTest {
 
     @Test
     void testVerifyAnswersWrong() throws Exception {
+
         User user = mockUser();
 
         UserSecurityAnswer a1 = mockAnswer("dog");
@@ -143,6 +144,7 @@ class SecurityQuestionControllerTest {
 
     @Test
     void testVerifyAnswersNotConfigured() throws Exception {
+
         User user = mockUser();
 
         Mockito.when(userService.getUserById(1L)).thenReturn(user);
