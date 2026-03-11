@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Vault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f4f6f9; }
+        .sidebar { height: 100vh; background: #212529; color: white; padding: 20px; }
+        .sidebar button { width: 100%; margin-bottom: 10px; }
+        .content { padding: 30px; }
+        table { border-radius: 12px; overflow: hidden; }
+        thead { background: #f8f9fc; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-2 sidebar">
+            <h4>Vault</h4>
+            <button class="btn btn-outline-light" onclick="location.href='/dashboard'">Overview</button>
+<button class="btn btn-outline-light" onclick="location.href='/vault'">Password Vault</button>
+<button class="btn btn-outline-light" onclick="location.href='/generator'">Generator</button>
+<button class="btn btn-outline-light" onclick="location.href='/audit'">Security Audit</button>
+<button class="btn btn-outline-light" onclick="location.href='/backup'">Backup (Import/Export)</button>
+<button class="btn btn-outline-light" onclick="location.href='/profile'">Profile</button>
+            <hr>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-10 content" id="mainContent">
+            <h3>Password Vault</h3>
+            <div class="row mb-2">
+                <div class="col-md-4"><input type="text" id="searchInput" class="form-control" placeholder="Search" onkeyup="loadPasswords()"></div>
+                <div class="col-md-4">
+                    <select id="categoryFilter" class="form-select" onchange="loadPasswords()">
+                        <option value="">All Categories</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Banking">Banking</option>
+                        <option value="Email">Email</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Work">Work</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="sortOption" class="form-select" onchange="loadPasswords()">
+                        <option value="">Default</option>
+                        <option value="AZ">Name A-Z</option>
+                        <option value="ZA">Name Z-A</option>
+                        <option value="LATEST">Latest First</option>
+                        <option value="OLDEST">Oldest First</option>
+                        <option value="MODIFIED">Latest Modified</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3"><button class="btn btn-success w-100" onclick="openAddModal()">+ Add Password</button></div>
+                <div class="col-md-3">
+                    <select id="strengthFilter" class="form-select" onchange="loadPasswords()">
+					    <option value="">All Strength</option>
+					    <option value="VERY_STRONG">Very Strong Only</option>
+					    <option value="STRONG">Strong Only</option>
+					    <option value="WEAK">Weak Only</option>
+					</select>
+                </div>
+                <div class="col-md-3">
+                    <select id="favoriteFilter" class="form-select" onchange="loadPasswords()">
+                        <option value="">All</option>
+                        <option value="FAV">Favorites Only</option>
+                    </select>
+                </div>
+                <div class="col-md-3"><button class="btn btn-secondary w-100" onclick="resetFilters()">Reset</button></div>
+            </div>
+            <table class="table table-bordered bg-white">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Website</th>
+                        <th>Username</th>
+                        <th>Category</th>
+                        <th>Fav</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="vaultTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="editVerifyMasterModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Verify Master Password to Update</h5>
+      </div>
+      <div class="modal-body">
+        <input type="password" id="editMasterPasswordInput" placeholder="Enter Master Password" class="form-control" />
+        <p id="editVerifyError" class="text-danger mt-2"></p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="confirmEditMasterPassword()" class="btn btn-primary">Verify & Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ADD PASSWORD MODAL -->
+<div class="modal fade" id="addPasswordModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Password</h5>
+        <button type="button" class="btn-close" onclick="closeModal()"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Account Info -->
+        <input type="text" id="accountName" class="form-control mb-2" placeholder="Account Name">
+        <input type="text" id="websiteUrl" class="form-control mb-2" placeholder="Website URL">
+        <input type="text" id="usernameEmail" class="form-control mb-2" placeholder="Username / Email">
+
+        <!-- Password Input + Generator -->
+        <div class="input-group mb-2">
+          <input type="password" id="encryptedPassword" class="form-control" placeholder="Password">
+          <button class="btn btn-outline-primary" type="button" onclick="toggleGeneratorOptions()">Generate</button>
+        </div>
+
+        <!-- Generator Options (Hidden Initially) -->
+        <div id="generatorOptions" class="card p-2 mb-2" style="display:none;">
+          <label class="form-label">Length</label>
+          <input type="number" id="genLengthAdd" class="form-control mb-2" value="12" min="8" max="64">
+
+          <div class="form-check">
+            <input type="checkbox" id="addUpper" class="form-check-input" checked>
+            <label class="form-check-label">Uppercase</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="addLower" class="form-check-input" checked>
+            <label class="form-check-label">Lowercase</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="addNumbers" class="form-check-input" checked>
+            <label class="form-check-label">Numbers</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="addSpecial" class="form-check-input" checked>
+            <label class="form-check-label">Special Characters</label>
+          </div>
+
+          <button class="btn btn-success w-100 mt-2" type="button" onclick="generateForAccount()">Generate Password</button>
+        </div>
+
+        <!-- Category -->
+        <select id="category" class="form-select mb-2">
+          <option value="">Select Category</option>
+          <option value="Social Media">Social Media</option>
+          <option value="Banking">Banking</option>
+          <option value="Email">Email</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Work">Work</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <!-- Notes -->
+        <textarea id="notes" class="form-control mb-2" placeholder="Notes"></textarea>
+
+        <!-- Favorite Checkbox -->
+        <div class="form-check mb-2">
+          <input type="checkbox" id="isFavorite" class="form-check-input">
+          <label class="form-check-label">Favorite</label>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-success" onclick="savePassword()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PASSWORD MODAL -->
+<div class="modal fade" id="editPasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Password</h5>
+                <button type="button" class="btn-close" onclick="closeEditModal()"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="editEntryId"> 
+                <input type="text" id="editAccountName" class="form-control mb-2" placeholder="Account Name">
+                <input type="text" id="editWebsiteUrl" class="form-control mb-2" placeholder="Website URL">
+                <input type="text" id="editUsernameEmail" class="form-control mb-2" placeholder="Username / Email">
+                <input type="hidden" id="originalPassword"> 
+                <input type="password" id="editPassword" class="form-control mb-2" placeholder="Password">
+                
+                <select id="editCategory" class="form-select mb-2">
+                    <option value="Social Media">Social Media</option>
+                    <option value="Banking">Banking</option>
+                    <option value="Email">Email</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Work">Work</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <div class="form-check">
+                    <input type="checkbox" id="editFavorite" class="form-check-input">
+                    <label class="form-check-label">Favorite</label>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="btn btn-success" onclick="updatePassword()">Update</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- VERIFY/VIEW PASSWORD MODAL -->
+<div class="modal fade" id="verifyMasterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Verify Master Password</h5>
+                <button type="button" class="btn-close" onclick="closeVerifyModal()"></button>
+            </div>
+            <div class="modal-body">
+                <input type="password" id="masterPasswordInput" class="form-control" placeholder="Enter Master Password">
+                <p id="verifyError" class="text-danger mt-2"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeVerifyModal()">Cancel</button>
+                <button class="btn btn-success" onclick="confirmViewPassword()">Verify</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- DELETE VERIFY MASTER PASSWORD -->
+<div class="modal fade" id="deleteVerifyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Verify Master Password</h5>
+                <button type="button" class="btn-close" onclick="closeDeleteModal()"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="password" id="deleteMasterPassword" class="form-control" placeholder="Enter Master Password">
+                <p id="deleteError" class="text-danger mt-2"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!--  improvement -->

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Manager - Backup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { height: 100vh; background: #212529; color: white; padding: 20px; }
+        .sidebar button { width: 100%; margin-bottom: 10px; }
+        .content { padding: 40px; }
+
+        .backup-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            transition: all .3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .backup-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+        }
+        .backup-card h4 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .backup-card p {
+            color: #555;
+            flex-grow: 1;
+        }
+        .btn-custom {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .page-title {
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-md-2 sidebar">
+            <h4>Vault</h4>
+            <button class="btn btn-outline-light" onclick="location.href='/dashboard'">Overview</button>
+            <button class="btn btn-outline-light" onclick="location.href='/vault'">Password Vault</button>
+            <button class="btn btn-outline-light" onclick="location.href='/generator'">Generator</button>
+            <button class="btn btn-outline-light" onclick="location.href='/audit'">Security Audit</button>
+            <button class="btn btn-outline-light" onclick="location.href='/backup'">Backup (Import/Export)</button>
+            <button class="btn btn-outline-light" onclick="location.href='/profile'">Profile</button>
+
+            <hr>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-10 content">
+            <h2 class="page-title">🔒 Backup Vault</h2>
+            <div class="row g-4">
+                <!-- Export Card -->
+                <div class="col-md-6 d-flex">
+                    <div class="backup-card w-100">
+                        <h4>Export Vault</h4>
+                        <p>Download your encrypted vault backup file to keep your passwords safe. You can restore it later using Import.</p>
+                        <button class="btn btn-primary btn-custom mt-3" onclick="exportVault()">Export Vault</button>
+                    </div>
+                </div>
+
+                <!-- Import Card -->
+                <div class="col-md-6 d-flex">
+                    <div class="backup-card w-100">
+                        <h4>Import Vault</h4>
+                        <p>Upload an encrypted backup file to restore your saved passwords securely.</p>
+                        <input type="file" id="importFile" class="form-control mb-3">
+                        <button class="btn btn-success btn-custom" onclick="importVault()">Import Vault</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- minor UI update -->
+<!-- JS -->
+<script src="/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
