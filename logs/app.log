@@ -1,0 +1,120 @@
+2026-03-11 07:40:05 INFO  c.p.P2RevPasswordManagerApplication - Starting P2RevPasswordManagerApplication using Java 17.0.12 with PID 2324 (C:\Users\India\RevatureJava\P2-RevPasswordManager2\target\classes started by Revanth in C:\Users\India\RevatureJava\P2-RevPasswordManager2)
+2026-03-11 07:40:05 DEBUG c.p.P2RevPasswordManagerApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-03-11 07:40:05 INFO  c.p.P2RevPasswordManagerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-11 07:40:05 INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\India\.m2\repository\com\oracle\database\jdbc\ojdbc11\21.9.0.0\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/India/.m2/repository/com/oracle/database/jdbc/ojdbc11/21.9.0.0/oraclepki.jar
+2026-03-11 07:40:05 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-11 07:40:05 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-11 07:40:07 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-11 07:40:07 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 201 ms. Found 5 JPA repository interfaces.
+2026-03-11 07:40:09 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-11 07:40:09 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-11 07:40:09 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-03-11 07:40:09 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-11 07:40:09 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3314 ms
+2026-03-11 07:40:09 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-11 07:40:09 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-11 07:40:09 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-11 07:40:10 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-11 07:40:10 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-11 07:40:12 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@439a9adb
+2026-03-11 07:40:12 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-11 07:40:15 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-11 07:40:47 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:40:50 INFO  c.p.config.SecurityConfig - BCryptPasswordEncoder bean is being created
+2026-03-11 07:40:50 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-11 07:40:51 INFO  c.p.config.SecurityConfig - Entered filterChain method to configure HTTP security
+2026-03-11 07:40:51 INFO  c.p.config.SecurityConfig - Configuring request matchers for authentication
+2026-03-11 07:40:51 INFO  c.p.config.SecurityConfig - Exiting filterChain method after configuring HTTP security
+2026-03-11 07:40:51 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@130563e1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6611e52d, org.springframework.security.web.context.SecurityContextHolderFilter@155be0c1, org.springframework.security.web.header.HeaderWriterFilter@1926d735, org.springframework.web.filter.CorsFilter@7ce1c725, org.springframework.security.web.authentication.logout.LogoutFilter@1a515a15, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ee0c63e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31ef752, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3002370f, org.springframework.security.web.access.ExceptionTranslationFilter@6129c681, org.springframework.security.web.access.intercept.AuthorizationFilter@4bca241e]
+2026-03-11 07:40:52 INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-03-11 07:40:52 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-03-11 07:40:52 INFO  c.p.P2RevPasswordManagerApplication - Started P2RevPasswordManagerApplication in 47.583 seconds (process running for 53.802)
+2026-03-11 07:41:20 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-11 07:41:20 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-11 07:41:20 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2026-03-11 07:41:20 INFO  c.p.controller.PageController - Accessed home page, redirecting to login
+2026-03-11 07:41:20 INFO  c.p.controller.PageController - Accessed login page
+2026-03-11 07:42:21 INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+2026-03-11 07:42:23 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:42:23 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-11 07:42:25 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-11 07:42:26 INFO  c.p.P2RevPasswordManagerApplication - Starting P2RevPasswordManagerApplication using Java 17.0.12 with PID 2324 (C:\Users\India\RevatureJava\P2-RevPasswordManager2\target\classes started by Revanth in C:\Users\India\RevatureJava\P2-RevPasswordManager2)
+2026-03-11 07:42:26 DEBUG c.p.P2RevPasswordManagerApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-03-11 07:42:26 INFO  c.p.P2RevPasswordManagerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-11 07:42:31 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-11 07:42:31 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 282 ms. Found 5 JPA repository interfaces.
+2026-03-11 07:42:32 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-11 07:42:32 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-11 07:42:32 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-03-11 07:42:33 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-11 07:42:33 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6108 ms
+2026-03-11 07:42:33 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-11 07:42:33 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-11 07:42:33 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-11 07:42:33 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-03-11 07:42:36 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection oracle.jdbc.driver.T4CConnection@57d09ae6
+2026-03-11 07:42:36 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-03-11 07:42:38 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-11 07:42:48 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:42:48 INFO  c.p.config.SecurityConfig - BCryptPasswordEncoder bean is being created
+2026-03-11 07:42:49 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-11 07:42:49 INFO  c.p.config.SecurityConfig - Entered filterChain method to configure HTTP security
+2026-03-11 07:42:49 INFO  c.p.config.SecurityConfig - Configuring request matchers for authentication
+2026-03-11 07:42:49 INFO  c.p.config.SecurityConfig - Exiting filterChain method after configuring HTTP security
+2026-03-11 07:42:49 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4a6ca55b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5718a31f, org.springframework.security.web.context.SecurityContextHolderFilter@7c17727e, org.springframework.security.web.header.HeaderWriterFilter@2c6c3845, org.springframework.web.filter.CorsFilter@2f83b722, org.springframework.security.web.authentication.logout.LogoutFilter@7b30ec64, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4c40d5ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3b35313c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ee40d, org.springframework.security.web.access.ExceptionTranslationFilter@c3f67b1, org.springframework.security.web.access.intercept.AuthorizationFilter@36433c3b]
+2026-03-11 07:42:50 INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-03-11 07:42:50 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-03-11 07:42:50 INFO  c.p.P2RevPasswordManagerApplication - Started P2RevPasswordManagerApplication in 23.894 seconds (process running for 172.141)
+2026-03-11 07:42:50 INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-03-11 07:43:02 INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-03-11 07:43:02 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:43:02 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-03-11 07:43:03 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-03-11 07:43:27 INFO  c.p.P2RevPasswordManagerApplicationTests - Starting P2RevPasswordManagerApplicationTests using Java 17.0.12 with PID 15592 (started by Revanth in C:\Users\India\RevatureJava\P2-RevPasswordManager2)
+2026-03-11 07:43:27 DEBUG c.p.P2RevPasswordManagerApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-03-11 07:43:27 INFO  c.p.P2RevPasswordManagerApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-03-11 07:43:34 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-11 07:43:34 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 529 ms. Found 5 JPA repository interfaces.
+2026-03-11 07:43:42 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-11 07:43:43 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-11 07:43:45 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-11 07:43:50 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-11 07:43:51 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-11 07:43:55 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@6a51ae7c
+2026-03-11 07:43:55 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-11 07:44:10 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-11 07:44:13 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:44:17 INFO  c.p.config.SecurityConfig - BCryptPasswordEncoder bean is being created
+2026-03-11 07:44:19 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-11 07:44:20 INFO  c.p.config.SecurityConfig - Entered filterChain method to configure HTTP security
+2026-03-11 07:44:20 INFO  c.p.config.SecurityConfig - Configuring request matchers for authentication
+2026-03-11 07:44:23 INFO  c.p.config.SecurityConfig - Exiting filterChain method after configuring HTTP security
+2026-03-11 07:44:24 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@571b4bf6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@24ffe853, org.springframework.security.web.context.SecurityContextHolderFilter@18876fa9, org.springframework.security.web.header.HeaderWriterFilter@5f63a6f2, org.springframework.web.filter.CorsFilter@a904e64, org.springframework.security.web.authentication.logout.LogoutFilter@5dfd4fac, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b3cbc0e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66e27ac9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22d23c27, org.springframework.security.web.access.ExceptionTranslationFilter@1dcf5f38, org.springframework.security.web.access.intercept.AuthorizationFilter@771b2b5b]
+2026-03-11 07:44:27 INFO  c.p.P2RevPasswordManagerApplicationTests - Started P2RevPasswordManagerApplicationTests in 63.907 seconds (process running for 73.2)
+2026-03-11 07:44:35 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:44:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-11 07:44:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-11 07:45:08 INFO  c.p.P2RevPasswordManagerApplicationTests - Starting P2RevPasswordManagerApplicationTests using Java 17.0.12 with PID 4280 (started by Revanth in C:\Users\India\RevatureJava\P2-RevPasswordManager2)
+2026-03-11 07:45:08 DEBUG c.p.P2RevPasswordManagerApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-03-11 07:45:08 INFO  c.p.P2RevPasswordManagerApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-03-11 07:45:13 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-11 07:45:13 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 428 ms. Found 5 JPA repository interfaces.
+2026-03-11 07:45:18 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-11 07:45:18 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-11 07:45:19 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-11 07:45:21 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-11 07:45:21 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-11 07:45:24 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@15ac02d5
+2026-03-11 07:45:24 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-11 07:45:31 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-11 07:45:32 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:45:36 INFO  c.p.config.SecurityConfig - BCryptPasswordEncoder bean is being created
+2026-03-11 07:45:38 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-11 07:45:38 INFO  c.p.config.SecurityConfig - Entered filterChain method to configure HTTP security
+2026-03-11 07:45:38 INFO  c.p.config.SecurityConfig - Configuring request matchers for authentication
+2026-03-11 07:45:40 INFO  c.p.config.SecurityConfig - Exiting filterChain method after configuring HTTP security
+2026-03-11 07:45:40 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3599b7e8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2862bac6, org.springframework.security.web.context.SecurityContextHolderFilter@6b578779, org.springframework.security.web.header.HeaderWriterFilter@a15e3c1, org.springframework.web.filter.CorsFilter@52e5ad71, org.springframework.security.web.authentication.logout.LogoutFilter@327ac23, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41d6d6c4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4349389d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@696a6506, org.springframework.security.web.access.ExceptionTranslationFilter@1d397e87, org.springframework.security.web.access.intercept.AuthorizationFilter@40874f54]
+2026-03-11 07:45:43 INFO  c.p.P2RevPasswordManagerApplicationTests - Started P2RevPasswordManagerApplicationTests in 37.322 seconds (process running for 44.079)
+2026-03-11 07:45:47 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-11 07:45:47 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-11 07:45:47 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
